@@ -1,0 +1,37 @@
+.user-form-item {
+    display: flex;
+    align-items: stretch; /* 垂直方向上拉伸以填满容器 */
+}
+
+/* 调整user-input-group内部元素布局 */
+.user-input-group {
+    display: flex;
+    width: 100%; /* 确保输入组本身也占满父容器宽度 */
+    align-items: center; /* 垂直居中对齐 */
+}
+
+/* 让输入框自适应并填充可用空间 */
+.user-input {
+    flex-grow: 1; /* 自动填充剩余空间 */
+    border-radius: 8px;
+    height: 48px;
+}
+
+/* 调整按钮样式以适应布局，比如去除默认内外边距 */
+.user-btn {
+    width: 40px; /* 设置一个具体的宽度和高度，确保它们相等 */
+    height: 40px;
+    border-radius: 50%; /* 设置为50%以形成圆形 */
+    margin: 0; /* 根据需要调整内外边距 */
+    flex-shrink: 0; /* 防止按钮被压缩 */
+    border: none; /* 移除边框，或者设定一个透明边框，确保圆形效果 */
+    overflow: hidden; /* 可选，确保内容不会溢出圆形边界 */
+    display: inline-flex; /* 添加Flexbox布局 */
+    justify-content: center; /* 横向居中 */
+    align-items: center; /* 纵向居中 */
+}
+
+.user-icon {
+    font-size: 24px !important;
+    color: white !important;
+}
