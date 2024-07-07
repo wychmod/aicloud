@@ -14,15 +14,52 @@
     <div class="layui-header">
         <div class="layui-logo layui-hide-xs layui-bg-black">AI Cloud</div>
         <!-- 头部区域（可配合layui 已有的水平导航） -->
-        <ul class="layui-nav layui-layout-left">
+        <ul id="chat-nav" class="layui-nav layui-layout-left">
             <!-- 移动端显示 -->
             <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-header-event="menuLeft">
                 <i class="layui-icon layui-icon-spread-left"></i>
             </li>
-            <li class="layui-nav-item layui-hide-xs"><a href="javascript:;">ChatGPT</a></li>
-            <li class="layui-nav-item layui-hide-xs"><a href="javascript:;">通义千问</a></li>
-            <li class="layui-nav-item layui-hide-xs"><a href="javascript:;">文心一言</a></li>
-            <li class="layui-nav-item layui-hide-xs"><a href="javascript:;">讯飞星火</a></li>
+            <li class="layui-nav-item layui-hide-xs layui-this" lay-on="nav-change-content"
+                lay-data="chat-chatgpt-content">
+                <a href="javascript:;">ChatGPT</a>
+            </li>
+            <li class="layui-nav-item layui-hide-xs" lay-on="nav-change-content" lay-data="chat-tongyi-content">
+                <a href="javascript:;">通义千问</a>
+            </li>
+            <li class="layui-nav-item layui-hide-xs" lay-on="nav-change-content" lay-data="chat-xunfei-content">
+                <a href="javascript:;">讯飞星火</a>
+            </li>
+            <li class="layui-nav-item layui-hide-xs" lay-on="nav-change-content" lay-data="chat-wenxin-content">
+                <a href="javascript:;">文心一言</a>
+            </li>
+        </ul>
+        <ul id="draw-nav" class="layui-nav layui-layout-left" style="display: none;">
+            <!-- 移动端显示 -->
+            <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-header-event="menuLeft">
+                <i class="layui-icon layui-icon-spread-left"></i>
+            </li>
+            <li class="layui-nav-item layui-hide-xs" lay-on="nav-change-content" lay-data="draw-chatgpt-content">
+                <a href="javascript:;">ChatGPT</a>
+            </li>
+            <li class="layui-nav-item layui-hide-xs" lay-on="nav-change-content" lay-data="draw-tongyi-content">
+                <a href="javascript:;">通义千问</a>
+            </li>
+            <li class="layui-nav-item layui-hide-xs" lay-on="nav-change-content" lay-data="draw-xunfei-content">
+                <a href="javascript:;">讯飞星火</a>
+            </li>
+            <li class="layui-nav-item layui-hide-xs" lay-on="nav-change-content" lay-data="draw-wenxin-content">
+                <a href="javascript:;">文心一言</a>
+            </li>
+        </ul>
+        <ul id="discuss-nav" class="layui-nav layui-layout-left" style="display: none;">
+            <!-- 移动端显示 -->
+            <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-header-event="menuLeft">
+                <i class="layui-icon layui-icon-spread-left"></i>
+            </li>
+            <li class="layui-nav-item layui-hide-xs" lay-on="nav-change-content"
+                lay-data="discuss-content"><a href="javascript:;">推荐</a></li>
+            <li class="layui-nav-item layui-hide-xs" lay-on="nav-change-content"
+                lay-data="discuss-content-new"><a href="javascript:;">最新</a></li>
         </ul>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item layui-hide layui-show-sm-inline-block">
@@ -46,15 +83,15 @@
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-            <ul  class="layui-nav layui-nav-tree" lay-filter="test">
+            <ul class="layui-nav layui-nav-tree" lay-filter="test">
                 <li class="layui-nav-item layui-nav-itemed">
                     <a class="" href="javascript:;">AI 工具箱</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">对话</a></dd>
-                        <dd><a href="javascript:;">绘图</a></dd>
+                        <dd><a class="layui-this" href="javascript:;" lay-on="chat-nav-show">对话</a></dd>
+                        <dd><a href="javascript:;" lay-on="draw-nav-show">绘图</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item"><a href="javascript:;">讨论区</a></li>
+                <li class="layui-nav-item" lay-on="discuss-nav-show"><a href="javascript:;">讨论区</a></li>
                 <li class="layui-nav-item"><a href="javascript:;">关于</a></li>
             </ul>
         </div>
@@ -62,32 +99,97 @@
     <div class="layui-body">
         <!-- 内容主体区域 -->
         <div style="padding: 15px;">
-            <div class="layui-card layui-panel">
+            <div id="chat-chatgpt-content" class="layui-card layui-panel">
                 <div class="layui-card-header layui-font-16">
-                    我提出的问题
+                    chat gpt 提出的问题
                 </div>
                 <div class="layui-card-body">
-                    充数内容<br>你还真滑到了底部呀
+                    chat gpt回答的内容
                 </div>
             </div>
-            <div class="layui-card layui-panel">
+            <div id="chat-tongyi-content" class="layui-card layui-panel" style="display: none">
                 <div class="layui-card-header layui-font-16">
-                    我提出的问题
+                    tongyi 提出的问题
                 </div>
                 <div class="layui-card-body">
-                    充数内容<br>你还真滑到了底部呀
+                    tongyi回答的内容
+                </div>
+            </div>
+            <div id="chat-xunfei-content" class="layui-card layui-panel" style="display: none">
+                <div class="layui-card-header layui-font-16">
+                    xunfei 提出的问题
+                </div>
+                <div class="layui-card-body">
+                    xunfei回答的内容
+                </div>
+            </div>
+            <div id="chat-wenxin-content" class="layui-card layui-panel" style="display: none">
+                <div class="layui-card-header layui-font-16">
+                    wenxin 提出的问题
+                </div>
+                <div class="layui-card-body">
+                    wenxin回答的内容
+                </div>
+            </div>
+            <div id="draw-chatgpt-content" class="layui-card layui-panel" style="display: none">
+                <div class="layui-card-header layui-font-16">
+                    chat gpt 提出的问题
+                </div>
+                <div class="layui-card-body">
+                    chat gpt回答的内容
+                </div>
+            </div>
+            <div id="draw-tongyi-content" class="layui-card layui-panel" style="display: none">
+                <div class="layui-card-header layui-font-16">
+                    tongyi 提出的问题
+                </div>
+                <div class="layui-card-body">
+                    tongyi回答的内容
+                </div>
+            </div>
+            <div id="draw-xunfei-content" class="layui-card layui-panel" style="display: none">
+                <div class="layui-card-header layui-font-16">
+                    xunfei 提出的问题
+                </div>
+                <div class="layui-card-body">
+                    xunfei回答的内容
+                </div>
+            </div>
+            <div id="draw-wenxin-content" class="layui-card layui-panel" style="display: none">
+                <div class="layui-card-header layui-font-16">
+                    wenxin 提出的问题
+                </div>
+                <div class="layui-card-body">
+                    wenxin回答的内容
+                </div>
+            </div>
+            <div id="discuss-content" class="layui-card layui-panel" style="display: none;">
+                <div class="layui-card-header layui-font-16">
+                    推荐话题讨论
+                </div>
+                <div class="layui-card-body">
+                    推荐话题讨论详情。
+                </div>
+            </div>
+            <div id="discuss-content-new" class="layui-card layui-panel" style="display: none;">
+                <div class="layui-card-header layui-font-16">
+                    最新话题讨论
+                </div>
+                <div class="layui-card-body">
+                    最新推荐话题讨论详情。
                 </div>
             </div>
             <br><br>
         </div>
     </div>
-    <div class="layui-footer" style="height: 80px;line-height: 80px;">
+    <div id="footer-chat"  class="layui-footer" style="height: 80px;line-height: 80px;">
         <!-- 底部固定区域 -->
         <div class="layui-form-item user-form-item">
             <div class="layui-input-group user-input-group">
-                <textarea placeholder="通过shift+回车进行换行" class="layui-input user-input"></textarea>
+                <textarea id="multiLineInput" placeholder="通过shift+回车进行换行"
+                          class="layui-input user-input"></textarea>
                 <div class="layui-input-suffix">
-                    <button class="layui-btn layui-btn-radius user-btn">
+                    <button class="layui-btn layui-btn-radius user-btn" lay-on="question-send">
                         <i class="layui-icon layui-icon-release user-icon"></i>
                     </button>
                 </div>
@@ -99,18 +201,83 @@
 <script src="/layui/layui.js"></script>
 <script>
     //JS
-    layui.use(['element', 'layer', 'util'], function(){
+    layui.use(['element', 'layer', 'util', 'jquery'], function () {
         var element = layui.element;
         var layer = layui.layer;
         var util = layui.util;
         var $ = layui.$;
+        var question_type = 'chat'; // 默认聊天
+
+        util.on('lay-on', {
+            'chat-nav-show': function () {
+                $('#discuss-nav').hide();
+                $('#chat-nav').show();
+                $('#draw-nav').hide();
+                var showDivId = 'chat-chatgpt-content';
+                $('#' + showDivId).show(); // 显示自己
+                $('#' + showDivId).siblings().hide(); // 隐藏其他
+                $("#chat-nav").find("li").removeClass("layui-this");
+                $("#chat-nav").find("li").eq(1).addClass("layui-this");
+                $("#footer-chat").show();
+                question_type = 'chat';
+            },
+            'draw-nav-show': function () {
+                $('#discuss-nav').hide();
+                $('#chat-nav').hide();
+                $('#draw-nav').show();
+                var showDivId = 'draw-chatgpt-content';
+                $('#' + showDivId).show(); // 显示自己
+                $('#' + showDivId).siblings().hide(); // 隐藏其他
+                $("#draw-nav").find("li").removeClass("layui-this");
+                $("#draw-nav").find("li").eq(1).addClass("layui-this");
+                $("#footer-chat").show();
+                question_type = 'draw';
+            },
+            'discuss-nav-show': function () {
+                $('#discuss-nav').show();
+                $('#chat-nav').hide();
+                $('#draw-nav').hide();
+                var showDivId = "discuss-content";
+                $("#" + showDivId).show();
+                $("#" + showDivId).siblings().hide();
+                $("#discuss-nav").find("li").removeClass("layui-this");
+                $("#discuss-nav").find("li").eq(1).addClass("layui-this");
+                // 隐藏聊天文本框
+                $("#footer-chat").hide();
+            },
+            'nav-change-content': function (e) { // 切换导航
+                var showDivId = $(e).attr("lay-data");
+                $('#' + showDivId).show(); // 显示自己
+                $('#' + showDivId).siblings().hide(); // 隐藏其他
+            },
+            'question-send': function () { // 发送问题
+                var question = $('#multiLineInput').val();
+                if (question.trim() === '' || question.trim() === '\n' || question.trim() === '\r\n') {
+                    layer.msg('请先输入问题!');
+                    return;
+                }
+                if (question_type === 'chat') { // 聊天
+                    $.ajax({
+                        url: '/openai/chat',
+                        type: 'POST',
+                        data: {
+                            question: question
+                        },
+                        success: function (res) {
+                            // todo
+                        }
+                    })
+                } else if (question_type === 'draw') { // 绘画
+                }
+            }
+        });
 
         //头部事件
         util.event('lay-header-event', {
-            menuLeft: function(othis){ // 左侧菜单事件
+            menuLeft: function (othis) { // 左侧菜单事件
                 layer.msg('展开左侧菜单的操作', {icon: 0});
             },
-            menuRight: function(){  // 右侧菜单事件
+            menuRight: function () {  // 右侧菜单事件
                 layer.open({
                     type: 1,
                     title: '更多',
@@ -123,6 +290,27 @@
                 });
             }
         });
+    });
+
+    document.getElementById('multiLineInput').addEventListener('keydown', function (event) {
+        // 检查是否单独按下了Enter键（不含Shift）
+        if (event.key === 'Enter' && !event.shiftKey) {
+            // 阻止默认的换行行为
+            event.preventDefault();
+        }
+        // 检查是否同时按下了Shift键和Enter键
+        else if (event.shiftKey && event.key === 'Enter') {
+            // 阻止默认行为，即阻止表单提交或默认的换行提交行为
+            event.preventDefault();
+
+            // 插入换行符，实现换行
+            const start = this.selectionStart;
+            const end = this.selectionEnd;
+            // 保存当前光标位置，并在当前光标位置插入换行符
+            this.value = this.value.substring(0, start) + '\n' + this.value.substring(end);
+            // 设置光标位置到新行的开始
+            this.setSelectionRange(start + 1, start + 1);
+        }
     });
 </script>
 </body>
