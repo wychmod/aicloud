@@ -1,5 +1,6 @@
 package com.wychmod.aicloud.controller;
 
+import com.wychmod.aicloud.util.ResponseEntity;
 import jakarta.annotation.Resource;
 import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.util.StringUtils;
@@ -19,11 +20,12 @@ public class OpenAIController {
      * @return 回复
      */
     @RequestMapping("/chat")
-    public String chat(String question) {
+    public ResponseEntity chat(String question) {
         if (!StringUtils.hasLength(question)) {
-            return "请先输入内容！";
+            return ResponseEntity.fail("请先输入内容！");
         }
         // 调用OpenAI接口
-        return chatModel.call(question);
+        String result = chatModel.call(question);
+        return ResponseEntity.success(result);
     }
 }
