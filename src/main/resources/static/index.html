@@ -98,15 +98,8 @@
     </div>
     <div class="layui-body">
         <!-- 内容主体区域 -->
-        <div style="padding: 15px;">
-            <div id="chat-chatgpt-content" class="layui-card layui-panel">
-                <div class="layui-card-header layui-font-16">
-                    chat gpt 提出的问题
-                </div>
-                <div class="layui-card-body">
-                    chat gpt回答的内容
-                </div>
-            </div>
+        <div  style="padding-top: 15px;padding-bottom: 80px;">
+            <div id="chat-chatgpt-content"></div>
             <div id="chat-tongyi-content" class="layui-card layui-panel" style="display: none">
                 <div class="layui-card-header layui-font-16">
                     tongyi 提出的问题
@@ -182,7 +175,7 @@
             <br><br>
         </div>
     </div>
-    <div id="footer-chat"  class="layui-footer" style="height: 80px;line-height: 80px;">
+    <div id="footer-chat" class="layui-footer" style="height: 80px;line-height: 80px;">
         <!-- 底部固定区域 -->
         <div class="layui-form-item user-form-item">
             <div class="layui-input-group user-input-group">
@@ -264,7 +257,20 @@
                             question: question
                         },
                         success: function (res) {
-                            // todo
+                            if (res.code === 200) {
+                                var createHtml = '<div class="layui-card layui-panel">\n' +
+                                    '                    <div class="layui-card-header layui-font-16">\n' +
+                                    question + '                        \n' +
+                                    '                    </div>\n' +
+                                    '                    <div class="layui-card-body">\n' +
+                                    res.data + '                        \n' +
+                                    '                    </div>\n' +
+                                    '                </div>'
+                                $('#chat-chatgpt-content').append(createHtml);
+                                $('#multiLineInput').val('');
+                            } else {
+                                layer.msg(res.msg);
+                            }
                         }
                     })
                 } else if (question_type === 'draw') { // 绘画
