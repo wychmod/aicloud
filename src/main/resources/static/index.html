@@ -124,14 +124,7 @@
                     wenxin回答的内容
                 </div>
             </div>
-            <div id="draw-chatgpt-content" class="layui-card layui-panel" style="display: none">
-                <div class="layui-card-header layui-font-16">
-                    chat gpt 提出的问题
-                </div>
-                <div class="layui-card-body">
-                    chat gpt回答的内容
-                </div>
-            </div>
+            <div id="draw-chatgpt-content" style="display: none"></div>
             <div id="draw-tongyi-content" class="layui-card layui-panel" style="display: none">
                 <div class="layui-card-header layui-font-16">
                     tongyi 提出的问题
@@ -281,7 +274,21 @@
                             question: question
                         },
                         success: function (res) {
-                            // todo
+                            // 显示图片
+                            if (res.code === 200) {
+                                var createHtml = '<div class="layui-card layui-panel">\n' +
+                                    '                    <div class="layui-card-header layui-font-16">\n' +
+                                    question + '                        \n' +
+                                    '                    </div>\n' +
+                                    '                    <div class="layui-card-body">\n' +
+                                    '<img src='+res.data.output.url+'>                        \n' +
+                                    '                    </div>\n' +
+                                    '                </div>'
+                                $('#draw-chatgpt-content').append(createHtml);
+                                $('#multiLineInput').val('');
+                            } else {
+                                layer.msg(res.msg);
+                            }
                         }
                     })
                 }
