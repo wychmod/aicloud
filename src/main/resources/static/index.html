@@ -94,6 +94,9 @@
                 <li class="layui-nav-item" lay-on="discuss-nav-show"><a href="javascript:;">讨论区</a></li>
                 <li class="layui-nav-item"><a href="javascript:;">关于</a></li>
             </ul>
+            <div style="position:absolute;bottom: 0;text-align: center;width: 100%">
+                <button type="button" class="layui-btn layui-btn-fluid" lay-on="doLogin">未登录</button>
+            </div>
         </div>
     </div>
     <div class="layui-body">
@@ -292,6 +295,19 @@
                         }
                     })
                 }
+            },
+            'doLogin': function () { // 弹出登录框
+                layer.open({
+                    type: 2,
+                    title: "登录",
+                    area: ['560px', '400px'],
+                    content: '/login.html',
+                    fixed: true, // 不固定
+                    maxmin: false,
+                    shadeClose: false,
+                    btnAlign: 'c',
+                    move: false
+                });
             }
         });
 
