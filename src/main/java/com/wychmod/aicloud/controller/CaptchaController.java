@@ -8,8 +8,9 @@ import com.wychmod.aicloud.util.ResponseEntity;
 import io.minio.errors.*;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.stereotype.Controller;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -18,12 +19,15 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.TimeUnit;
 
-@Controller
+@RestController
 @RequestMapping("/captcha")
 public class CaptchaController {
 
     @Resource
     private MinIoUtil minIoUtil;
+
+    @Resource
+    private RedisTemplate<String, String> redisTemplate;
 
     /**
      * 生成验证码
@@ -36,8 +40,8 @@ public class CaptchaController {
         String fileName = "captcha-" + SecureUtil.md5(request.getRemoteAddr());
         try (InputStream inputStream = new ByteArrayInputStream(lineCaptcha.getImageBytes())) {
             url = minIoUtil.upload(fileName, inputStream, "image/png");
-            // String code = lineCaptcha.getCode(); // 正确的验证码
-            // redisTemplate.opsForValue().set(fileName, code,60, TimeUnit.SECONDS); // 验证码存储到 Redis
+             String code = lineCaptcha.getCode(); // 正确的验证码
+             redisTemplate.opsForValue().set(fileName, code,60, TimeUnit.SECONDS); // 验证码存储到 Redis
         }
         return ResponseEntity.success(url);
     }
