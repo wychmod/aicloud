@@ -2,8 +2,13 @@ package com.wychmod.aicloud.util;
 
 import lombok.Data;
 
+import java.io.Serial;
+import java.io.Serializable;
+
 @Data
-public class ResponseEntity {
+public class ResponseEntity implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 4566135631432L;
     private int code;
     private String msg;
     private Object data;
