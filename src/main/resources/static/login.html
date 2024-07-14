@@ -75,13 +75,14 @@
         <a href="javascript:;"><i class="layui-icon layui-icon-login-wechat" style="color: #4daf29;"></i></a>
         <a href="javascript:;"><i class="layui-icon layui-icon-login-weibo" style="color: #cf1900;"></i></a>
       </span>
-            或 <a href="#reg">注册帐号</a>
+            或 <a lay-on="doRegister" href="javascript:;">注册帐号</a>
         </div>
     </div>
 </form>
 
 <!-- 请勿在项目正式环境中引用该 layui.js 地址 -->
 <script src="/layui/layui.js"></script>
+<script src="/js/appvariable.js"></script>
 <script>
     layui.use(['util'], function () {
         var form = layui.form;
@@ -115,6 +116,9 @@
             'ref_captcha_img': function () {
                 // 重新加载图片验证码
                 createCaptcha();
+            },
+            'doRegister': function () {
+                location.href = 'register.html';
             }
         });
 
@@ -128,8 +132,17 @@
                 data: field,
                 success: function (res) {
                     if (res.code === 200) {
-                        // 登录成功
-                        layer.msg("登录成功！");
+                        // 登录成功，将 JWT 生成 Token 存储到 LocalStorage
+                        layui.data(login_user_info_key,{
+                            key: jwt_token_key,
+                            value: res.data.jwt
+                        });
+                        layui.data(login_user_info_key,{
+                            key: 'username',
+                            value: res.data.username
+                        });
+                        // 刷新父页面
+                        window.parent.location.href = window.parent.location.href;
                     } else {
                         layer.msg("登录失败：" + res.msg);
                     }
